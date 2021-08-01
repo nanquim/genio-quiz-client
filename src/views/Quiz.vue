@@ -4,7 +4,7 @@
     <div class="pergunta">{{ perguntaAtual.pergunta }}</div>
     <div class="alternativas">
       <ul>
-        <transition-group name="zoomInDown">
+        <transition-group appear name="zoomInDown">
           <li
             v-for="(alternativa, index) in perguntaAtual.alternativas"
             :key="index"
@@ -131,7 +131,7 @@ li {
   cursor: pointer;
 }
 
-.zoomInDown-enter-active {
-  animation: zoomInDown 0.2s;
+.zoomInDown-enter-active, .zoomInDown-leave-active {
+  animation: zoomInDown 0.8s;
 }
 </style>
