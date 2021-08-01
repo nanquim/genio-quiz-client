@@ -1,4 +1,4 @@
-const API = process.env.VUE_APP_API_DEVELOPMENT
+const API = process.env.VUE_APP_API
 
 export const GetQuiz = async () => {
     
