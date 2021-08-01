@@ -127,7 +127,6 @@ ul {
 
 li {
   margin-bottom: 10px;
-  /* border: solid white 1px; */
   padding: 10px;
   cursor: pointer;
 }

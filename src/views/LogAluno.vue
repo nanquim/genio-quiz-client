@@ -2,7 +2,8 @@
   <div class="log-aluno">
     <Logo />
     <p>Você finalizou seu quiz!</p>
-    <Botao :path="'/'" :text="'Inicio'"/>
+    <p v-if="resultado !== null">{{ resultado.nota }}</p>
+    <Botao :path="'/'" :text="'Inicio'" />
   </div>
 </template>
 
@@ -14,10 +15,22 @@ export default {
   name: "LogAluno",
   components: {
     Logo,
-    Botao
+    Botao,
+  },
+  data() {
+    return {
+      socket: {},
+      resultado: null,
+    };
+  },
+  mounted() {
+    this.sockets.subscribe("resultado", (dados) => {
+      this.resultado = dados;
+    });
   },
 };
 </script>
+
 
 
 <style scoped>
@@ -30,7 +43,7 @@ export default {
   align-items: center;
   color: #fff;
 }
-.log-aluno > *{
+.log-aluno > * {
   margin-bottom: 5%;
 }
 </style>

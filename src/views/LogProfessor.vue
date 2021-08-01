@@ -1,22 +1,24 @@
 <template>
   <div class="log-professor-container">
     <Logo />
-    <div v-if="resultado !== null" class="resultado">
+    <div v-if="resultado" class="resultado">
       <div class="resultado-resumo">
         Aluno: {{ resultado.aluno }} - Nota: {{ resultado.nota }}
       </div>
       <div class="resultado-detalhe">
         <ul>
           <li v-for="(resp, index) in resultado.respostas" :key="index">
-            Pergunta {{ index + 1 }}: Resposta do aluno: {{resp.resposta }}  - Correta - {{resp.correta}}
+            Pergunta {{ index + 1 }}: Resposta do aluno: {{ resp.resposta }} -
+            Correta - {{ resp.correta }}
           </li>
         </ul>
       </div>
     </div>
     <div v-else>
-      <p>Professor, aguarde o aluno terminar de responder o quiz</p>
+      <p>Professor, aguarde o aluno entrar e terminar de responder o quiz</p>
     </div>
-        <Botao :path="'/'" :text="'Inicio'"/>
+    <div v-if="aluno && !resultado" class="conectado">Aluno conectou</div>
+    <Botao :path="'/'" :text="'Inicio'" />
   </div>
 </template>
 
@@ -28,12 +30,13 @@ export default {
   name: "LogProfessor",
   components: {
     Logo,
-    Botao
+    Botao,
   },
   data() {
     return {
       socket: {},
       resultado: null,
+      aluno: null,
     };
   },
   mounted() {
@@ -41,6 +44,9 @@ export default {
     this.$socket.emit("login-professor", id);
     this.sockets.subscribe("resultado", (dados) => {
       this.resultado = dados;
+    });
+    this.sockets.subscribe("aluno-conectado", (dados) => {
+      this.aluno = dados;
     });
   },
 };
@@ -57,17 +63,15 @@ export default {
   align-items: center;
   color: #fff;
 }
-.log-professor-container > * {
-  margin-bottom: 10%;
-}
 
-.resultado-resumo, .resultado-detalhe{
+.resultado-resumo,
+li {
+  margin: 10px;
+  height: 10%;
+  padding: 10px;
   background: #c0244c;
-  padding: 5px;
-}
-
-.resultado-resumo, li {
-  margin-bottom: 10px;
+  -webkit-box-shadow: 3px 6px 31px -6px #000000;
+  box-shadow: 3px 6px 31px -6px #000000;
 }
 
 ul {
@@ -75,7 +79,10 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  margin-bottom: 10%;
 }
 
-
+.conectado{
+  margin: 10%;
+}
 </style>
