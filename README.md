@@ -1,24 +1,30 @@
 # Gênio Quiz
 
+Front-end em VueJS para o servidor ExpressJS
+
+#### https://genio-client.herokuapp.com/#/
+
 ## 1. Instale o projeto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Executar em desenvolvimento
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compila e minifica para produção
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Linter
 ```
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Executar em produção
+```
+npm run start
+```
